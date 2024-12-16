@@ -19,3 +19,6 @@ class Reservas(models.Model):
             ('No asisten', 'No asisten'),
         ]
     )
+    
+    def __str__(self):
+        return self.nombre

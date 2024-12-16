@@ -19,10 +19,12 @@ from django.urls import path
 from ReservasAPP.views import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('', index, name='index'),
     path('reservas', reservas, name='reservas'),
     path('agregarReserva', agregarReserva, name='agregarReserva'),
     path('eliminarReserva/<int:id>', eliminarReserva, name='eliminarReserva'),
-    path('editarReserva/<int:id>', editarReserva, name='editarReserva')
+    path('editarReserva/<int:id>', editarReserva, name='editarReserva'),
+    path('reservasAPI', reservas_list, name='reservasAPI'),
+    path('reservasAPI/<int:pk>', reservas_detail, name='reservasAPI'),
 ]

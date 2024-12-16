@@ -35,9 +35,9 @@
         <div class="text-center mb-4">
           <h4>SISTEMA DE RESERVA</h4>
         </div>
-        <a href="#" class="active">Reservas</a>
-        <a href="#">Reservas API</a>
-        <a href="#">Admin</a>
+        <a href="{% url 'reservas' %}">Reservas</a>
+        <a href="{% url 'reservasAPI' %}">Reservas API</a>
+        <a href="{% url 'admin:index' %}">Administrador</a>
         <hr>
       </div>
 
@@ -66,7 +66,7 @@
                 <div class="card-body">
                   <h5 class="card-title">Vista Admin</h5>
                   <p class="card-text">Dirigite a la vista de administrador.</p>
-                  <a href="#" class="btn btn-primary"><i class="bi bi-person-circle"></i></a>
+                  <a href="{% url 'admin:index' %}" class="btn btn-primary"><i class="bi bi-person-circle"></i></a>
                 </div>
               </div>
           
@@ -76,7 +76,7 @@
                 <div class="card-body">
                   <h5 class="card-title">Reservas API</h5>
                   <p class="card-text">Consultar las reservas de API.</p>
-                  <a href="#" class="btn btn-primary"><i class="bi bi-search"></i></a>
+                  <a href="{% url 'reservasAPI' %}" class="btn btn-primary"><i class="bi bi-search"></i></a>
                 </div>
               </div>
           </div>

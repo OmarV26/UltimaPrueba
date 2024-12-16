@@ -3,16 +3,18 @@ from django.http import HttpResponseRedirect
 from ReservasAPP.forms import ReservasForm
 from ReservasAPP.models import *
 from django.shortcuts import reverse
+from django.http import JsonResponse
 
+#Importaciones para la API
+from  ReservasAPP.serializers import ReservasSerializer
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view
 
 # Create your views here.
 
-
 def index(request):
     return render(request, 'index.html')
-
-
-
 
 #vista de las reservas
 def reservas(request):
@@ -55,3 +57,41 @@ def editarReserva(request, id):
         form = ReservasForm(instance=reserva)
     data = {'form': form}
     return render(request, 'editarReserva.html', data)
+
+#Crea una API para la reserva
+
+@api_view(['GET', 'POST'])
+def reservas_list(request):
+    if request.method == 'GET':
+        reservas = Reservas.objects.all()
+        serializer = ReservasSerializer(reservas, many=True)
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        serializer = ReservasSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)    
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)         
+    
+@api_view(['GET', 'PUT', 'DELETE'])
+def reservas_detail(request, pk):
+    try:
+        reserva = Reservas.objects.get(pk=pk)
+    except Reservas.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ReservasSerializer(reserva)
+        return Response(serializer.data)
+    
+    if request.method == 'PUT':
+        serializer = ReservasSerializer(reserva, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    if request.method == 'DELETE':
+        reserva.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
