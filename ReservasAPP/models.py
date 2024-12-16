@@ -4,7 +4,6 @@ from django.db import models
 
 
 class Reservas(models.Model):
-    id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     telefono = models.CharField(max_length=15)
     fecha = models.DateField()

@@ -36,7 +36,7 @@ def agregarReserva(request):
                 cantidadPersonas=form.cleaned_data['cantidadPersonas'],
                 estadoReserva=form.cleaned_data['estadoReserva']
             )
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('reservas'))
     
     data = {'form': form}
     return render(request, 'agregarReserva.html', data)

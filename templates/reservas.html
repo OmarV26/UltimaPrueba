@@ -13,6 +13,7 @@
 <body>
     <div class="container-fluid mt-5">
         <h1 class="h3 mb-4 text-gray-800 text-center">Gestión de Reservas</h1>
+        
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Listado de Reservas</h6>
@@ -33,27 +34,44 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% if Reservas %}
-                                {% for reserva in Reservas %}
-                                <tr>
-                                    <td>{{ reserva.id }}</td>
-                                    <td>{{ reserva.nombre }}</td>
-                                    <td>{{ reserva.telefono }}</td>
-                                    <td>{{ reserva.fecha }}</td>
-                                    <td>{{ reserva.hora }}</td>
-                                    <td>{{ reserva.cantidadPersonas }}</td>
-                                    <td>{{ reserva.estadoReserva }}</td>
-                                    <td class="text-center">
-                                        <a href="{% url 'editarReserva' reserva.id %}" class="btn btn-sm btn-success"><i class="bi bi-pencil-fill"></i></a>
-                                        <a href="{% url 'eliminarReserva' reserva.id %}" class="btn btn-sm btn-danger"><i class="bi bi-trash3"></i></a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            {% else %}
-                                <tr class="text-center">
-                                    <td colspan="8">No hay reservas registradas</td>
-                                </tr>
-                            {% endif %}
+                            {% for reserva in Reservas %}
+                            <tr>
+                                <td>{{ reserva.id }}</td>
+                                <td>{{ reserva.nombre }}</td>
+                                <td>{{ reserva.telefono }}</td>
+                                <td>{{ reserva.fecha }}</td>
+                                <td>{{ reserva.hora }}</td>
+                                <td>{{ reserva.cantidadPersonas }}</td>
+                                <td>{{ reserva.estadoReserva }}</td>
+                                <td class="text-center">
+                                    <a href="{% url 'editarReserva' reserva.id %}" class="btn btn-success">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+
+                                    <button class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal{{ reserva.id }}">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <div class="modal fade" id="deleteModal{{ reserva.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ reserva.id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel{{ reserva.id }}">Confirmar Eliminación</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Estás seguro de que deseas eliminar la reserva de <strong>{{ reserva.nombre }}</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <a href="{% url 'eliminarReserva' reserva.id %}" class="btn btn-danger">Eliminar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
                         </tbody>
                     </table>
                     <div class="row">
@@ -69,11 +87,14 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
                 "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+                    "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
+                    "emptyTable": "No hay reservas registradas en este momento."
                 }
             });
         });
