@@ -13,14 +13,54 @@
         </div>
         <form method="post" class="col-6 offset-3 border border-success rounded p-4">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="mb-3">
+                {{ form.nombre.label_tag }}
+                {{ form.nombre }}
+                {% if form.nombre.errors %}
+                    <div class="text-danger">{{ form.nombre.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.telefono.label_tag }}
+                {{ form.telefono }}
+                {% if form.telefono.errors %}
+                    <div class="text-danger">{{ form.telefono.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.fecha.label_tag }}
+                {{ form.fecha }}
+                {% if form.fecha.errors %}
+                    <div class="text-danger">{{ form.fecha.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.hora.label_tag }}
+                {{ form.hora }}
+                {% if form.hora.errors %}
+                    <div class="text-danger">{{ form.hora.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.cantidadPersonas.label_tag }}
+                {{ form.cantidadPersonas }}
+                {% if form.cantidadPersonas.errors %}
+                    <div class="text-danger">{{ form.cantidadPersonas.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.estadoReserva.label_tag }}
+                {{ form.estadoReserva }}
+                {% if form.estadoReserva.errors %}
+                    <div class="text-danger">{{ form.estadoReserva.errors }}</div>
+                {% endif %}
+            </div>
             <div class="d-grid">
                 <button type="submit" class="btn btn-success">Guardar</button>
             </div>
             <div class="d-grid mt-3">
                 <a href="{% url 'reservas' %}" class="btn btn-danger">Volver</a>
             </div>
-        </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>

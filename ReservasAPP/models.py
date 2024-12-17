@@ -8,7 +8,7 @@ class Reservas(models.Model):
     telefono = models.CharField(max_length=15)
     fecha = models.DateField()
     hora = models.TimeField()
-    cantidadPersonas = models.IntegerField()
+    cantidadPersonas = models.IntegerField(max_length=15)
     estadoReserva = models.CharField(
         max_length=100,
         choices=[
